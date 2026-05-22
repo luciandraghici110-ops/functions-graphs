@@ -129,9 +129,20 @@ function cleanExpr(expr) {
     .replace(/−/g, "-")
     .replace(/\s+/g, "");
 }
+function cleanExpr(expr) {
+  return expr
+    .replace(/×/g, '*')
+    .replace(/−/g, '-')
+    .replace(/÷/g, '/')
+    .replace(/,/g, '.')
+    .replace(/\s+/g, '')
+    .trim();
+}
 
 function addFunction() {
-  let input = document.getElementById("funcInput");
+  const input = document.getElementById('funcInput');
+  const errMsg = document.getElementById('errMsg');
+
   let expr = cleanExpr(input.value);
 
   if (!expr) return;
@@ -141,13 +152,38 @@ function addFunction() {
   try {
     compiled = math.compile(expr);
 
-    // test simplu
+    // test real
     compiled.evaluate({ x: 1 });
 
   } catch (e) {
-    alert("Funcție invalidă");
+    console.log(e);
+
+    errMsg.textContent = 'Eroare: expresie invalidă.';
+    input.classList.add('error');
+
     return;
   }
+
+  errMsg.textContent = '';
+  input.classList.remove('error');
+
+  const color = nextColor();
+
+  const f = {
+    id: Date.now(),
+    expr,
+    compiled,
+    color,
+    visible: true
+  };
+
+  funcs.push(f);
+
+  input.value = '';
+
+  renderFuncList();
+  draw();
+}
 
   funcs.push({
     expr,
