@@ -20,7 +20,17 @@
   header .logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1.2rem; letter-spacing:-0.03em; color:var(--accent); }
   header .logo span { color:var(--text); }
   header .tagline { font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; }
-  .app { display:flex; flex:1; overflow:hidden; }
+.app {
+  display: flex;
+  flex: 1;
+  height: calc(100dvh - 50px);
+  overflow: hidden;
+}
+@supports not (height: 100dvh) {
+  .app {
+    height: calc(100vh - 50px);
+  }
+}
   .sidebar { width:280px; min-width:280px; background:var(--panel); border-right:1px solid var(--border); display:flex; flex-direction:column; overflow:hidden; }
   .sidebar-section { padding:14px; border-bottom:1px solid var(--border); }
   .sidebar-section label { display:block; font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
@@ -726,4 +736,4 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 </body>
-</html> fa asta sa nu mai fie lagauit cand ma misc pe ecran pe grafic daca sunt facute deja cateva
+</html> 
